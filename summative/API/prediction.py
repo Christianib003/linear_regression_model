@@ -33,3 +33,18 @@ def extract_number(s):
         return float(s.split()[0])
     except:
         return np.nan
+    
+
+# Define Pydantic model for input validation
+class CarInput(BaseModel):
+    Year: int = Field(..., ge=1990, le=2023, description="Manufacturing year of the car (1990-2023)")
+    Kilometers_Driven: int = Field(..., ge=0, description="Total distance driven (in kilometers)")
+    Fuel_Type: str = Field(..., description="Type of fuel (e.g., Petrol, Diesel, CNG, LPG)")
+    Transmission: str = Field(..., description="Transmission type (Manual or Automatic)")
+    Owner_Type: str = Field(..., description="Ownership history (e.g., First, Second)")
+    Mileage: str = Field(..., description="Fuel efficiency (e.g., '18.9 kmpl' or '26.6 km/kg')")
+    Engine: str = Field(..., description="Engine displacement (e.g., '1197 CC')")
+    Power: str = Field(..., description="Engine power (e.g., '81.86 bhp')")
+    Seats: float = Field(..., ge=2, le=10, description="Number of seats (2-10)")
+    Location: str = Field(..., description="Location of the car (e.g., Mumbai, Pune)")
+    Name: str = Field(..., description="Car name (e.g., 'Maruti Swift VXI')")
