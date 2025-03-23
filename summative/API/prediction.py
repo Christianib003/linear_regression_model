@@ -18,3 +18,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# Load the saved model, scaler, feature columns, and fill_dict
+model = load('dependencies/best_model.joblib')
+scaler = load('dependencies/scaler.joblib')
+feature_columns = load('dependencies/feature_columns.joblib')
+fill_dict = load('dependencies/fill_dict.joblib')
