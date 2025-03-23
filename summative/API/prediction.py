@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 from joblib import load
 import pandas as pd
 import numpy as np
+import uvicorn
 
 
 # Initialize FastAPI app
@@ -97,3 +98,17 @@ def predict_car_price(input_data, scaler, model, feature_columns, fill_dict):
     prediction = model.predict(input_scaled)
     return prediction[0]
 
+
+# Define the POST endpoint
+@app.post("/predict")
+async def predict(input_data: CarInput):
+    try:
+        prediction = predict_car_price(input_data, scaler, model, feature_columns, fill_dict)
+        return {"predicted_price": float(prediction)}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Prediction error: {str(e)}")
+
+
+# Run the app directly when the script is executed
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
