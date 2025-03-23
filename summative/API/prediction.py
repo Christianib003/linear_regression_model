@@ -52,34 +52,20 @@ class CarInput(BaseModel):
 
 
 # Function to preprocess and predict
-def predict_car_price(input_data, scaler, model, feature_columns, fill_dict):
-    """
-    Predict the price of a used car given input data.
-    
-    Parameters:
-    - input_data (dict): Dictionary with raw input features (e.g., Year, Kilometers_Driven, Fuel_Type, etc.)
-    - scaler (StandardScaler): Trained scaler object
-    - model: Trained model (best model from comparison)
-    - feature_columns (list): List of feature columns expected by the model
-    - fill_dict (dict): Dictionary with mean values for imputation
-    
-    Returns:
-    - float: Predicted price in lakhs
-    """
+def predict_car_price(input_data: CarInput, scaler, model, feature_columns, fill_dict):
     # Convert input data to DataFrame
-    input_df = pd.DataFrame([input_data])
+    input_dict = input_data.dict()
+    input_df = pd.DataFrame([input_dict])
     
-    # Extract Brand from Name if provided
-    if 'Name' in input_df.columns:
-        input_df['Brand'] = input_df['Name'].apply(lambda x: x.split()[0])
-        input_df = input_df.drop('Name', axis=1)
+    # Extract Brand from Name
+    input_df['Brand'] = input_df['Name'].apply(lambda x: x.split()[0])
+    input_df = input_df.drop('Name', axis=1)
     
     # Clean numerical columns
     for col in ['Mileage', 'Engine', 'Power']:
-        if col in input_df.columns:
-            input_df[col] = input_df[col].apply(extract_number)
+        input_df[col] = input_df[col].apply(extract_number)
     
-    # Impute missing values with the same means used during training
+    # Impute missing values with the same medians used during training
     input_df.fillna(fill_dict, inplace=True)
     
     # One-hot encode categorical variables
@@ -94,7 +80,7 @@ def predict_car_price(input_data, scaler, model, feature_columns, fill_dict):
     # Scale features
     input_scaled = scaler.transform(input_encoded)
     
-    # Predict
+    # Make prediction
     prediction = model.predict(input_scaled)
     return prediction[0]
 
