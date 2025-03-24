@@ -15,7 +15,7 @@ This project implements a machine learning model to predict used car prices usin
   - [Setup and Installation](#setup-and-installation)
     - [Linear Regression Model](#linear-regression-model-1)
     - [API Service](#api-service-1)
-    - [Flutter Application (Coming Soon)](#flutter-application-coming-soon)
+    - [Flutter Application](#flutter-application-1)
   - [Usage](#usage)
   - [API Documentation](#api-documentation)
 
@@ -83,7 +83,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Flutter Application (Coming Soon)
+### Flutter Application
 ```bash
 cd FlutterApp
 flutter pub get
