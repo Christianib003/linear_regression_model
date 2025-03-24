@@ -63,7 +63,7 @@ The Flutter application (coming soon) will be located in the `FlutterApp/` direc
 - A prediction results screen
 - Integration with the prediction API
 - User-friendly interface for interacting with the model
-- [Video Walkthrough](#placeholder)
+- [Video Walkthrough](https://www.loom.com/share/a155c1bb0c9f4d2da1bb88b58ee6f748?sid=d408b3d9-622d-42a1-a560-23b0183333a8)
 
 ## Setup and Installation
 Each component has its own virtual environment and dependencies:
