@@ -82,8 +82,7 @@ def predict_car_price(input_data: CarInput, scaler, model, feature_columns, fill
     
     # Make prediction
     prediction = model.predict(input_scaled)
-    return prediction[0]
-
+    return round(prediction[0], 2)
 
 # Define the POST endpoint
 @app.post("/predict")
